@@ -18,7 +18,7 @@ Built for editing Obsidian vaults and other directories containing private data.
 ## Install
 
 ```
-go install github.com/phill/safer-claude@latest
+go install github.com/philphilphil/safer-claude@latest
 ```
 
 Or build from source:
