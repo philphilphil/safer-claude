@@ -8,12 +8,24 @@ import (
 )
 
 func main() {
-	if len(os.Args) < 2 {
-		fmt.Fprintf(os.Stderr, "Usage: safer-claude <file-or-folder>\n")
-		os.Exit(1)
+	dangerouslySkipPermissions := false
+	var target string
+
+	for _, arg := range os.Args[1:] {
+		switch arg {
+		case "--dangerously-skip-permissions":
+			dangerouslySkipPermissions = true
+		default:
+			if target == "" {
+				target = arg
+			}
+		}
 	}
 
-	target := os.Args[1]
+	if target == "" {
+		fmt.Fprintf(os.Stderr, "Usage: safer-claude [--dangerously-skip-permissions] <file-or-folder>\n")
+		os.Exit(1)
+	}
 
 	// Resolve to absolute path
 	absTarget, err := filepath.Abs(target)
@@ -62,7 +74,11 @@ func main() {
 	fmt.Printf("Launching Claude Code...\n\n")
 
 	// Launch claude in the temp dir
-	cmd := exec.Command(claudePath)
+	var claudeArgs []string
+	if dangerouslySkipPermissions {
+		claudeArgs = append(claudeArgs, "--dangerously-skip-permissions")
+	}
+	cmd := exec.Command(claudePath, claudeArgs...)
 	cmd.Dir = tmpDir
 	cmd.Stdin = os.Stdin
 	cmd.Stdout = os.Stdout

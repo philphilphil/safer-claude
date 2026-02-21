@@ -35,6 +35,9 @@ safer-claude ~/vault/notes/todo.md
 
 # Edit a folder
 safer-claude ~/vault/projects/myproject
+
+# Skip Claude's permission prompts (use with caution)
+safer-claude --dangerously-skip-permissions ~/vault/projects/myproject
 ```
 
 ## Conflict handling
