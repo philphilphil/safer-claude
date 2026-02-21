@@ -1,5 +1,6 @@
 # safer-claude
 **100% unsafely vibe coded.**
+
 Run Claude Code on sensitive files without exposing your entire directory. Copies target files to a temp directory, launches Claude there, then syncs changes back — only the files you choose get sent to Anthropic.
 
 Built for editing Obsidian vaults and other directories containing private data.
